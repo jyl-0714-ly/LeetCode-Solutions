@@ -16,6 +16,11 @@ class MedianFinder {
     private final PriorityQueue<Integer> left = new PriorityQueue<>((a, b) -> b - a); // 最大堆
     private final PriorityQueue<Integer> right = new PriorityQueue<>(); // 最小堆
 
+    /*
+    思路：使用两个堆（一个最大堆 left 存较小的一半，一个最小堆 right 存较大的一半）动态维护数据流的有序结构：
+    通过在 addNum 中交替插入并平衡堆大小，确保 left 的大小始终等于或比 right 多 1；查询中位数时，若总元
+    素数为奇数则返回 left 堆顶，偶数则返回两堆顶的平均值
+    */
     public void addNum(int num) {
         if (left.size() == right.size()) {
             right.offer(num);
